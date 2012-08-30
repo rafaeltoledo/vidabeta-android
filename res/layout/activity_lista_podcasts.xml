@@ -14,6 +14,7 @@
             android:id="@+id/logo_peixe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/logo_desc"
             android:padding="15dp"
             android:src="@drawable/logo"
             tools:context=".PrincipalActivity" />
@@ -24,16 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Podcasts" />
+            android:text="@string/podcasts" />
     </LinearLayout>
 
     <Button
         android:id="@+id/botao_voltar"
-        style="@style/ButtonText"
+        style="@style/ButtonTextCenter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/botao_background"
-        android:text="Voltar" />
+        android:text="@string/voltar" />
 
 </RelativeLayout>

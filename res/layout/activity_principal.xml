@@ -1,22 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg" >
+    android:background="@drawable/fundo"
+    android:orientation="vertical" >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:padding="15dp"
+        android:contentDescription="@string/logo_desc"
+        android:padding="6dp"
         android:src="@drawable/logo"
         tools:context=".PrincipalActivity" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:orientation="vertical" >
 
         <Button
@@ -24,22 +23,40 @@
             style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:background="@drawable/botao_background"
-            android:text="Podcasts" />
+            android:drawableLeft="@drawable/play"
+            android:drawablePadding="8dp"
+            android:text="@string/podcasts" />
+
+        <Button
+            android:id="@+id/botao_vlog"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_background"
+            android:drawableLeft="@drawable/play"
+            android:drawablePadding="15dp"
+            android:text="@string/vlog" />
 
         <Button
             style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botao_background"
-            android:text="Artigos" />
+            android:drawableLeft="@drawable/play"
+            android:drawablePadding="15dp"
+            android:text="@string/artigos" />
 
         <Button
             style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botao_background"
-            android:text="Sobre o Vida Beta" />
+            android:drawableLeft="@drawable/play"
+            android:drawablePadding="15dp"
+            android:text="@string/sobre" />
 
         <Button
             android:id="@+id/botao_sair"
@@ -47,7 +64,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botao_background"
-            android:text="Sair" />
+            android:drawableLeft="@drawable/play"
+            android:drawablePadding="15dp"
+            android:text="@string/sair" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
