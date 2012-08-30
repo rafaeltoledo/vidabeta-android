@@ -7,10 +7,47 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:src="@drawable/logo"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:padding="15dp"
-        tools:context=".PrincipalActivity" />    
+        android:src="@drawable/logo"
+        tools:context=".PrincipalActivity" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/botao_podcasts"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_background"
+            android:text="Podcasts" />
+
+        <Button
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_background"
+            android:text="Artigos" />
+
+        <Button
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_background"
+            android:text="Sobre o Vida Beta" />
+
+        <Button
+            android:id="@+id/botao_sair"
+            style="@style/ButtonText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_background"
+            android:text="Sair" />
+    </LinearLayout>
 
 </RelativeLayout>
