@@ -27,7 +27,7 @@
             android:layout_marginRight="25dp"
             android:background="@drawable/botao_background"
             android:drawableLeft="@drawable/play"
-            android:drawablePadding="8dp"
+            android:drawablePadding="15dp"
             android:text="@string/podcasts" />
 
         <Button

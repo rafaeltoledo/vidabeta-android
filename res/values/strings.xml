@@ -11,5 +11,6 @@
     <string name="podcasts">Podcasts</string>
     <string name="voltar">Voltar</string>
     <string name="logo_desc">Logotipo do Aplicativo</string>
+    <string name="sem_rede">Conexão com a Internet indisponível. Habilite a rede de dados ou o wi-fi.</string>
 
 </resources>
