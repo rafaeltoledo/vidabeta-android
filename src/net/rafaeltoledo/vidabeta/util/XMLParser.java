@@ -1,4 +1,4 @@
-package net.rafaeltoledo.vidabeta.activity.util;
+package net.rafaeltoledo.vidabeta.util;
 
 import java.io.IOException;
 import java.io.StringReader;
