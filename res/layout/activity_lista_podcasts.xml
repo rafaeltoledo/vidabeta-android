@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg" >
+    android:background="@drawable/fundo" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,16 +16,25 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/logo_desc"
             android:padding="15dp"
+            android:paddingBottom="5dp"
             android:src="@drawable/logo"
             tools:context=".PrincipalActivity" />
 
         <TextView
+            android:id="@+id/titulo"
             style="@style/ButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"            
             android:text="@string/podcasts" />
+
+        <ListView
+            android:id="@+id/lista_casts"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:background="#000000"
+            android:listSelector="@drawable/estilo_lista" />
     </LinearLayout>
 
     <Button

@@ -1,28 +1,40 @@
 package net.rafaeltoledo.vidabeta.activity;
 
-import java.net.URL;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
+import net.rafaeltoledo.vidabeta.model.Podcast;
+import net.rafaeltoledo.vidabeta.util.XMLParser;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
-import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndContentImpl;
-import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndEntry;
-import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndFeed;
-import com.google.code.rome.android.repackaged.com.sun.syndication.io.SyndFeedInput;
-import com.google.code.rome.android.repackaged.com.sun.syndication.io.XmlReader;
+public class ListaPodcastsActivity extends Activity implements
+		AdapterView.OnItemClickListener {
 
-public class ListaPodcastsActivity extends Activity {
-
+	private ListView lista;
 	private Button botaoVoltar;
+	List<Podcast> podcasts = new ArrayList<Podcast>();
+	ArrayAdapter<Podcast> adaptador = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_podcasts);
+
+		lista = (ListView) findViewById(R.id.lista_casts);
+		lista.setOnItemClickListener(this);
 
 		botaoVoltar = (Button) findViewById(R.id.botao_voltar);
 		botaoVoltar.setOnClickListener(new View.OnClickListener() {
@@ -31,59 +43,59 @@ public class ListaPodcastsActivity extends Activity {
 				finish();
 			}
 		});
+	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
 		teste();
+		preencherLista();
+	}
+
+	private void preencherLista() {
+		adaptador = new ArrayAdapter<Podcast>(this,
+				android.R.layout.simple_list_item_1, podcasts);
+		lista.setAdapter(adaptador);
 	}
 
 	private void teste() {
+		String KEY = "podcast";
+		String KEY_TITULO = "titulo";
+		String KEY_DATA = "data";
+		String KEY_DESCRICAO = "descricao";
+		String KEY_DURACAO = "duracao";
+		String KEY_IMAGEM = "imagem";
+		String KEY_LINK = "link";
 		try {
-			URL url = new URL("http://vidabeta.com.br/category/podcast/feed");
-			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed feed = input.build(new XmlReader(url));
-			System.out.println("Feed title: " + feed.getAuthor());
-			
-			for (Iterator<SyndEntry> i = feed.getEntries().iterator(); i.hasNext();) {
-				SyndEntry entry = i.next();				
-				System.out.println(entry.getTitle());
-				List<SyndContentImpl> conteudos = (List<SyndContentImpl>) entry.getContents(); 
-				for (SyndContentImpl content : conteudos) {
-					System.out.println(content.getMode() + " " + content.getType() + " " + content.getValue());
-				}
+			XMLParser parser = new XMLParser();
+			String xml = parser
+					.getXmlFromUrl("http://www.rafaeltoledo.net/vidabeta.xml");
+			Document doc = parser.getDomElement(xml);
+			NodeList nl = doc.getElementsByTagName(KEY);
+
+			for (int i = 0; i < nl.getLength(); i++) {
+				Element e = (Element) nl.item(i);
+
+				Podcast cast = new Podcast();
+				cast.setTitulo(parser.getValue(e, KEY_TITULO));
+				cast.setFoto(parser.getValue(e, KEY_IMAGEM));
+				cast.setDuracao(parser.getValue(e, KEY_DURACAO));
+				cast.setData(parser.getValue(e, KEY_DATA));
+				cast.setDescricao(parser.getValue(e, KEY_DESCRICAO));
+				cast.setLink(parser.getValue(e, KEY_LINK));
+				podcasts.add(cast);
 			}
+
 		} catch (Exception ex) {
+			Log.e("VidaBeta", ex.getMessage());
 			throw new RuntimeException(ex);
 		}
-		/*
-		 * try { FeedFetcher feedFetcher = new HttpURLFeedFetcher(); SyndFeed
-		 * feed = feedFetcher.retrieveFeed(new
-		 * URL("http://vidabeta.com.br/feed")); System.out.println("Tamanho: " +
-		 * feed.getEntries().size());
-		 * 
-		 * for (int i = 0; i < feed.getEntries().size(); i++) { SyndEntry entry
-		 * = (SyndEntry) feed.getEntries().get(i);
-		 * 
-		 * System.out.println(entry.getTitle()); } } catch (Exception ex) {
-		 * System.err.println(ex.getMessage()); }
-		 */
+	}
 
-		/*
-		 * try { XMLParser parser = new XMLParser(); String feed =
-		 * parser.getXmlFromUrl("http://vidabeta.com.br/category/podcast/feed");
-		 * System.out.println(feed); Document doc = parser.getDomElement(feed);
-		 * NodeList l = doc.getElementsByTagName("item");
-		 * System.out.println("Tamanho: " + l.getLength()); for (int i = 0; i <
-		 * l.getLength(); i++) { Node node = l.item(i); NodeList children =
-		 * node.getChildNodes(); for (int j = 0; j < children.getLength(); j++)
-		 * { Node child = children.item(j); if
-		 * ("title".equals(child.getNodeName())) {
-		 * System.out.println(child.getNodeValue()); } } } } catch (Exception
-		 * ex) { System.err.println(ex.getMessage()); }
-		 */
-
-		/*
-		 * O que me interessa: <title> <pubDate> <category></category> <-- tem
-		 * que ser Vida Beta Cast <description> <itunes:duration> <enclosure>
-		 * <-- link do Mp3 imagem? banner_post. dentro de <content:encoded>
-		 */
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent i = new Intent(this, PodcastActivity.class);
+		i.putExtra("cast", podcasts.get((int) id));
+		startActivity(i);
 	}
 }
