@@ -1,4 +1,4 @@
-package net.rafaeltoledo.vidabeta.activity;
+package net.rafaeltoledo.vidabeta;
 
 import android.app.Activity;
 import android.content.Intent;
