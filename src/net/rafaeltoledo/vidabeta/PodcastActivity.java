@@ -4,7 +4,9 @@ import net.rafaeltoledo.vidabeta.model.Podcast;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -28,7 +30,7 @@ import android.widget.TextView;
 
 public class PodcastActivity extends Activity implements OnClickListener,
 		OnTouchListener, OnCompletionListener, OnBufferingUpdateListener,
-		OnPreparedListener {
+		OnPreparedListener, OnCancelListener {
 
 	public static final String IMAGE_LOCATION = "net.rafaeltoledo.IMAGE_LOCATION";
 	private StatusInstancia status = null;
@@ -88,7 +90,7 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 		if (!capaAtualizada) {
 			dialog = ProgressDialog.show(this, "Aguarde",
-					"Carregando informações do podcast...", true);
+					"Carregando informações do podcast...", true, true, this);
 			status = (StatusInstancia) getLastNonConfigurationInstance();
 			if (status == null) {
 				status = new StatusInstancia();
@@ -252,5 +254,9 @@ public class PodcastActivity extends Activity implements OnClickListener,
 		minutos = minutos % 60;
 
 		return String.format("%02d:%02d:%02d", horas, minutos, segundos);
+	}
+
+	public void onCancel(DialogInterface dialog) {
+		finish();
 	}
 }

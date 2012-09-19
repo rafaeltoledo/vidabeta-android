@@ -7,6 +7,8 @@ import net.rafaeltoledo.vidabeta.model.Podcast;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 public class ListaPodcastsActivity extends Activity implements
-		AdapterView.OnItemClickListener {
+		AdapterView.OnItemClickListener, OnCancelListener {
 
 	private ListView lista;
 	private Button botaoVoltar;
@@ -47,7 +49,7 @@ public class ListaPodcastsActivity extends Activity implements
 		});
 		
 		dialog = ProgressDialog.show(this, "Baixando Lista de Podcasts",
-                "Por favor, aguarde... Isso vai levar só alguns segundos...", true);
+                "Por favor, aguarde... Isso vai levar só alguns segundos...", true, true, this);
 		status = (StatusInstancia) getLastNonConfigurationInstance();
 
 		String feed = getIntent().getExtras().getString("FEED_LOCATION");
@@ -138,4 +140,8 @@ public class ListaPodcastsActivity extends Activity implements
             }
         }
     }
+
+	public void onCancel(DialogInterface dialog) {
+		finish();		
+	}
 }
