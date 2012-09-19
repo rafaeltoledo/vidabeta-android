@@ -13,34 +13,47 @@
         android:src="@drawable/logo"
         tools:context=".PrincipalActivity" />
 
-    <ScrollView 
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content" >
+
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/botao_podcasts"
-            style="@style/ButtonText"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/botao_background"
-            android:drawableLeft="@drawable/play"
-            android:drawablePadding="15dp"
-            android:text="@string/podcasts" />
+            android:orientation="vertical" >
 
-        <Button
+            <Button
+                android:id="@+id/botao_podcasts"
+                style="@style/ButtonText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/botao_background"
+                android:drawableLeft="@drawable/marcador_menu"
+                android:drawablePadding="15dp"
+                android:text="@string/podcasts" />
+
+            <Button
+                android:id="@+id/botao_minicasts"
+                style="@style/ButtonText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/botao_background"
+                android:drawableLeft="@drawable/marcador_menu"
+                android:drawablePadding="15dp"
+                android:text="@string/minicasts" />
+
+            <!--
+        Button
             android:id="@+id/botao_vlog"
             style="@style/ButtonText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botao_background"
-            android:drawableLeft="@drawable/play"
+            android:drawableLeft="@drawable/marcador_menu"
             android:drawablePadding="15dp"
             android:text="@string/vlog" />
 
@@ -49,30 +62,31 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/botao_background"
-            android:drawableLeft="@drawable/play"
+            android:drawableLeft="@drawable/marcador_menu"
             android:drawablePadding="15dp"
-            android:text="@string/artigos" />
+            android:text="@string/artigos" /
+            -->
 
-        <Button
-            style="@style/ButtonText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/botao_background"
-            android:drawableLeft="@drawable/play"
-            android:drawablePadding="15dp"
-            android:text="@string/sobre" />
+            <Button
+                android:id="@+id/botao_sobre"
+                style="@style/ButtonText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/botao_background"
+                android:drawableLeft="@drawable/marcador_menu"
+                android:drawablePadding="15dp"
+                android:text="@string/sobre" />
 
-        <Button
-            android:id="@+id/botao_sair"
-            style="@style/ButtonText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/botao_background"
-            android:drawableLeft="@drawable/play"
-            android:drawablePadding="15dp"
-            android:text="@string/sair" />
-    </LinearLayout>
-        
+            <Button
+                android:id="@+id/botao_sair"
+                style="@style/ButtonText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/botao_background"
+                android:drawableLeft="@drawable/marcador_menu"
+                android:drawablePadding="15dp"
+                android:text="@string/sair" />
+        </LinearLayout>
     </ScrollView>
-    
-    </LinearLayout>
+
+</LinearLayout>

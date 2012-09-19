@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,12 +50,15 @@ public class ListaPodcastsActivity extends Activity implements
                 "Por favor, aguarde... Isso vai levar só alguns segundos...", true);
 		status = (StatusInstancia) getLastNonConfigurationInstance();
 
+		String feed = getIntent().getExtras().getString("FEED_LOCATION");
+		Log.i("VidaBeta", feed);
         if (status == null) {
             status = new StatusInstancia();
             status.handler = new HandlerSincronizacao(this);
 
             Intent i = new Intent(this, ListaPodcastService.class);
             i.putExtra(ListaPodcastService.MESSENGER_EXTRA, new Messenger(status.handler));
+            i.putExtra(ListaPodcastService.FEED_LOCATION, feed);
             startService(i);
         } else {
             if (status.handler != null) {

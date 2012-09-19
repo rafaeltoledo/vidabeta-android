@@ -23,11 +23,11 @@ public class ListaPodcastService extends IntentService {
 	private final String KEY_TITULO = "titulo";
 	private final String KEY_DATA = "data";
 	private final String KEY_DESCRICAO = "descricao";
-	private final String KEY_DURACAO = "duracao";
 	private final String KEY_IMAGEM = "imagem";
 	private final String KEY_LINK = "link";
 	
 	public static final String MESSENGER_EXTRA = "net.rafaeltoledo.MESSENGER_EXTRA";
+	public static final String FEED_LOCATION = "net.rafaeltoledo.FEED";
 	
 	public ListaPodcastService() {
 		super("PodcastService");
@@ -38,10 +38,11 @@ public class ListaPodcastService extends IntentService {
 		XMLParser parser = new XMLParser();
 		
 		Messenger messenger = (Messenger) intent.getExtras().get(MESSENGER_EXTRA);
+		String feed = intent.getExtras().getString(FEED_LOCATION);
 		Message msg = Message.obtain();
 		
 		try {
-			String xml = parser.getXmlFromUrl("http://www.rafaeltoledo.net/vidabeta.xml");
+			String xml = parser.getXmlFromUrl(feed);
 			Document doc = parser.getDomElement(xml);
 			NodeList nl = doc.getElementsByTagName(KEY);			
 			List<Podcast> resultado = new ArrayList<Podcast>();
@@ -52,7 +53,6 @@ public class ListaPodcastService extends IntentService {
 				Podcast cast = new Podcast();
 				cast.setTitulo(parser.getValue(e, KEY_TITULO));
 				cast.setFoto(parser.getValue(e, KEY_IMAGEM));
-				cast.setDuracao(parser.getValue(e, KEY_DURACAO));
 				cast.setData(parser.getValue(e, KEY_DATA));
 				cast.setDescricao(parser.getValue(e, KEY_DESCRICAO));
 				cast.setLink(parser.getValue(e, KEY_LINK));

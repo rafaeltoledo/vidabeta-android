@@ -71,8 +71,6 @@ public class PodcastActivity extends Activity implements OnClickListener,
 		data.setText(podcast.getData());
 
 		info = (TextView) findViewById(R.id.info);
-		info.setText(Html.fromHtml("<b>Duração:</b> " + podcast.getDuracao()));
-
 		capa = (ImageView) findViewById(R.id.capa);
 
 		playPause = (ImageButton) findViewById(R.id.play_pause);
@@ -127,7 +125,7 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 		// Atualizar contador
 		info.setText(Html.fromHtml("<b>Duração:</b> "
-				+ converterTempo(mediaFileLengthInMilliseconds * percent / 100)
+				+ converterTempo(media.getCurrentPosition())
 				+ " / " + converterTempo(mediaFileLengthInMilliseconds)));
 	}
 
@@ -154,7 +152,7 @@ public class PodcastActivity extends Activity implements OnClickListener,
 					media.setAudioStreamType(AudioManager.STREAM_MUSIC);
 					media.setDataSource(podcast.getLink());
 					media.prepareAsync();
-					playPause.setImageResource(R.drawable.ic_dialog_time);
+					playPause.setImageResource(R.anim.anim_loader);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -162,15 +160,13 @@ public class PodcastActivity extends Activity implements OnClickListener,
 				mediaFileLengthInMilliseconds = media.getDuration();
 
 				if (!media.isPlaying()) {
-					media.start();
-					// playPause.setImageResource(R.drawable.pause);
+					media.start();					
 					playPause
-							.setImageResource(android.R.drawable.ic_media_pause);
+							.setImageResource(R.drawable.pause);
 				} else {
-					media.pause();
-					// playPause.setImageResource(R.drawable.play);
+					media.pause();					
 					playPause
-							.setImageResource(android.R.drawable.ic_media_play);
+							.setImageResource(R.drawable.play);
 				}
 
 				atualizaBarraPrimaria();
@@ -242,9 +238,8 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 	public void onPrepared(MediaPlayer mp) {
 		audioOk = true;
-		media.start();
-		// playPause.setImageResource(R.drawable.pause);
-		playPause.setImageResource(android.R.drawable.ic_media_pause);
+		media.start();		
+		playPause.setImageResource(R.drawable.pause);
 		mediaFileLengthInMilliseconds = media.getDuration();
 		// atualizaBarraPrimaria();
 	}

@@ -2,29 +2,18 @@ package net.rafaeltoledo.vidabeta.model;
 
 import java.io.Serializable;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
-@DatabaseTable(tableName = "podcasts")
 public class Podcast implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5676940425170557522L;
-	@DatabaseField(generatedId = true)
-	private int id;
-	@DatabaseField
+	
 	private String titulo;
-	@DatabaseField
+	
 	private String data;
-	@DatabaseField
+	
 	private String descricao;
-	@DatabaseField
-	private String duracao;
-	@DatabaseField
+	
 	private String foto;
-	@DatabaseField
+	
 	private String link;
 
 	public String getTitulo() {
@@ -49,14 +38,6 @@ public class Podcast implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public String getDuracao() {
-		return duracao;
-	}
-
-	public void setDuracao(String duracao) {
-		this.duracao = duracao;
 	}
 
 	public String getFoto() {
