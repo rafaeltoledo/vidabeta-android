@@ -37,7 +37,7 @@ public class PrincipalActivity extends Activity {
 					Intent i = new Intent(PrincipalActivity.this,
 							ListaPodcastsActivity.class);
 					i.putExtra("FEED_LOCATION",
-							"http://www.rafaeltoledo.net/vidabeta.xml");
+							"http://www.vidabeta.com.br/app/vidabeta.xml");
 					startActivity(i);
 				} else {
 					Toast.makeText(
@@ -57,7 +57,7 @@ public class PrincipalActivity extends Activity {
 					Intent i = new Intent(PrincipalActivity.this,
 							ListaPodcastsActivity.class);
 					i.putExtra("FEED_LOCATION",
-							"http://www.rafaeltoledo.net/minibeta.xml");
+							"http://www.vidabeta.com.br/app/minibeta.xml");
 					startActivity(i);
 				} else {
 					Toast.makeText(

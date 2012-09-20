@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -118,7 +118,10 @@ public class PodcastActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		media.stop();
+		if (media.isPlaying()) {
+			media.stop();
+		}
+		media.release();
 		capaAtualizada = false;
 	}
 

@@ -5,11 +5,16 @@ import java.net.URL;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 public class DownloadImageService extends IntentService {
 
@@ -45,6 +50,19 @@ public class DownloadImageService extends IntentService {
 	private Drawable getDrawable(String url) throws Exception {
 		URL u = new URL(url);
 		InputStream is = (InputStream) u.getContent();
-		return Drawable.createFromStream(is, "src");
+		Drawable d = Drawable.createFromStream(is, "src");
+		DisplayMetrics metrics = new DisplayMetrics();
+		WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+		wm.getDefaultDisplay().getMetrics(metrics);
+		Log.i("ScreenInfo", String.valueOf(metrics.densityDpi));
+		if (metrics.densityDpi == DisplayMetrics.DENSITY_HIGH) {
+			Log.i("VidaBeta", "High");
+			Bitmap bitmap = ((BitmapDrawable) d).getBitmap();
+			Bitmap tmp = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 3, 
+					bitmap.getHeight() * 3, false);
+			d = new BitmapDrawable(tmp);
+		}
+		
+		return d;
 	}
 }
