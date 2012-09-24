@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ListaPodcastsActivity extends Activity implements
 		AdapterView.OnItemClickListener, OnCancelListener {
@@ -53,6 +54,11 @@ public class ListaPodcastsActivity extends Activity implements
 		status = (StatusInstancia) getLastNonConfigurationInstance();
 
 		String feed = getIntent().getExtras().getString("FEED_LOCATION");
+		if (feed.contains("mini")) {
+			TextView titulo = (TextView) findViewById(R.id.titulo);
+			titulo.setText(getString(R.string.minicasts));
+		}
+		
 		Log.i("VidaBeta", feed);
         if (status == null) {
             status = new StatusInstancia();

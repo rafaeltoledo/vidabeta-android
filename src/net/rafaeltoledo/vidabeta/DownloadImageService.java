@@ -39,11 +39,12 @@ public class DownloadImageService extends IntentService {
 			msg.arg1 = Activity.RESULT_CANCELED;
 			msg.obj = ex;
 		}
-		
+
 		try {
 			messenger.send(msg);
 		} catch (Exception ex) {
-			Log.w(getString(R.string.app_name), "Falha ao enviar mensagem (download)", ex);
+			Log.w(getString(R.string.app_name),
+					"Falha ao enviar mensagem (download)", ex);
 		}
 	}
 
@@ -52,17 +53,17 @@ public class DownloadImageService extends IntentService {
 		InputStream is = (InputStream) u.getContent();
 		Drawable d = Drawable.createFromStream(is, "src");
 		DisplayMetrics metrics = new DisplayMetrics();
-		WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+		WindowManager wm = (WindowManager) getApplicationContext()
+				.getSystemService(Context.WINDOW_SERVICE);
 		wm.getDefaultDisplay().getMetrics(metrics);
 		Log.i("ScreenInfo", String.valueOf(metrics.densityDpi));
 		if (metrics.densityDpi == DisplayMetrics.DENSITY_HIGH) {
-			Log.i("VidaBeta", "High");
 			Bitmap bitmap = ((BitmapDrawable) d).getBitmap();
-			Bitmap tmp = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 3, 
-					bitmap.getHeight() * 3, false);
+			Bitmap tmp = Bitmap.createScaledBitmap(bitmap,
+					bitmap.getWidth() * 3, bitmap.getHeight() * 3, false);
 			d = new BitmapDrawable(tmp);
 		}
-		
+
 		return d;
 	}
 }
