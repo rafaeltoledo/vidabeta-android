@@ -206,8 +206,9 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 	private void atirarErro(Throwable t) {
 		Builder builder = new Builder(this);
-		builder.setTitle("Erro!").setMessage(t.toString())
+		builder.setTitle("Erro!").setMessage("Falha de conexão! Não foi possível baixar as informações do podcast. Tente novamente!")
 				.setPositiveButton("OK", null).show();
+		finish();
 	}
 
 	private static class HandlerDownload extends Handler {

@@ -97,7 +97,7 @@ public class ListaPodcastsActivity extends Activity implements
 	
 	private void atirarErro(Throwable t) {
         Builder builder = new Builder(this);
-        builder.setTitle("Erro!").setMessage(t.toString()).setPositiveButton("OK", null).show();
+        builder.setTitle("Erro!").setMessage("Falha na conexão! Não foi possível baixar a lista de episódios!").setPositiveButton("OK", null).show();
     }
 	
 	@Override
