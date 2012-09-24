@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PodcastActivity extends Activity implements OnClickListener,
 		OnTouchListener, OnCompletionListener, OnBufferingUpdateListener,
@@ -128,10 +129,16 @@ public class PodcastActivity extends Activity implements OnClickListener,
 	public void onBufferingUpdate(MediaPlayer mp, int percent) {
 		progresso.setSecondaryProgress(percent);
 
-		// Atualizar contador
-		info.setText(Html.fromHtml("<b>Duração:</b> "
-				+ converterTempo(media.getCurrentPosition())
-				+ " / " + converterTempo(mediaFileLengthInMilliseconds)));
+		try {
+			// Atualizar contador
+			info.setText(Html.fromHtml("<b>Duração:</b> "
+					+ converterTempo(media.getCurrentPosition()) + " / "
+					+ converterTempo(mediaFileLengthInMilliseconds)));
+		} catch (Exception ex) {
+			Toast.makeText(this, "Ops! Tivemos um problema de conexão!",
+					Toast.LENGTH_SHORT).show();
+			media.stop();
+		}
 	}
 
 	public void onCompletion(MediaPlayer mp) {
@@ -165,13 +172,11 @@ public class PodcastActivity extends Activity implements OnClickListener,
 				mediaFileLengthInMilliseconds = media.getDuration();
 
 				if (!media.isPlaying()) {
-					media.start();					
-					playPause
-							.setImageResource(R.drawable.pause);
+					media.start();
+					playPause.setImageResource(R.drawable.pause);
 				} else {
-					media.pause();					
-					playPause
-							.setImageResource(R.drawable.play);
+					media.pause();
+					playPause.setImageResource(R.drawable.play);
 				}
 
 				atualizaBarraPrimaria();
@@ -180,15 +185,21 @@ public class PodcastActivity extends Activity implements OnClickListener,
 	}
 
 	private void atualizaBarraPrimaria() {
-		progresso
-				.setProgress((int) (((float) media.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
-		if (media.isPlaying()) {
-			Runnable notification = new Runnable() {
-				public void run() {
-					atualizaBarraPrimaria();
-				}
-			};
-			handler.postDelayed(notification, 1000);
+		try {
+			progresso
+					.setProgress((int) (((float) media.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+			if (media.isPlaying()) {
+				Runnable notification = new Runnable() {
+					public void run() {
+						atualizaBarraPrimaria();
+					}
+				};
+				handler.postDelayed(notification, 1000);
+			}
+		} catch (Exception ex) {
+			Toast.makeText(this, "Ops! Tivemos um problema de conexão!",
+					Toast.LENGTH_SHORT).show();
+			media.stop();
 		}
 	}
 
@@ -206,7 +217,9 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 	private void atirarErro(Throwable t) {
 		Builder builder = new Builder(this);
-		builder.setTitle("Erro!").setMessage("Falha de conexão! Não foi possível baixar as informações do podcast. Tente novamente!")
+		builder.setTitle("Erro!")
+				.setMessage(
+						"Falha de conexão! Não foi possível baixar as informações do podcast. Tente novamente!")
 				.setPositiveButton("OK", null).show();
 		finish();
 	}
@@ -244,7 +257,7 @@ public class PodcastActivity extends Activity implements OnClickListener,
 
 	public void onPrepared(MediaPlayer mp) {
 		audioOk = true;
-		media.start();		
+		media.start();
 		playPause.setImageResource(R.drawable.pause);
 		mediaFileLengthInMilliseconds = media.getDuration();
 		// atualizaBarraPrimaria();
